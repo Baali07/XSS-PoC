@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <div id="xss">Safe</div>
     <script>
-      document.getElementById("xss").innerHTML = "<b style='color:red'>XSS Executed</b>";
+      console.log("XSS LOGGED - Proof of Execution");
+      document.body.innerHTML = "✅ XSS has run (check console)";
     </script>
   </body>
 </html>
