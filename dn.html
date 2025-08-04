@@ -2,7 +2,11 @@
 <html>
   <body>
     <script>
-      console.log("XSS LOGGED - Proof of Execution");
+      console.log(window.top === window); // هل السياق الأعلى هو نفسه؟ true تعني أنك في الأعلى
+      console.log(document.cookie);       // هل تستطيع قراءة الكوكيز؟
+      console.log(localStorage);          // هل لديك وصول إلى التخزين المحلي؟
+      console.log(window.location.href);  // ما الرابط الحالي؟
+
       document.body.innerHTML = "✅ XSS has run (check console)";
     </script>
   </body>
