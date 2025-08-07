@@ -1,12 +1,8 @@
-<!-- dd.html -->
-<!DOCTYPE html>
-<html>
-<body>
+<iframe srcdoc="
   <script>
-    window.parent.postMessage({
-      type: "xss",
-      payload: "document.body.insertAdjacentHTML('beforeend', '<h2 style=\\\"color:red\\\">✅ XSS Executed</h2>')"
-    }, "*");
+    parent.postMessage({
+      type: 'xss',
+      payload: 'confirm(`🔥 Confirm Executed from iframe!`)',
+    }, '*');
   </script>
-</body>
-</html>
+" style="display:none"></iframe>
